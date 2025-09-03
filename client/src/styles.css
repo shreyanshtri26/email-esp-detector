@@ -1,0 +1,64 @@
+:root {
+    --bg: #0b1220;
+    --card: #101a2e;
+    --muted: #94a3b8;
+    --text: #e5e7eb;
+    --accent: #3b82f6;
+  }
+  
+  * { box-sizing: border-box; }
+  html, body, #root { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, system-ui, Arial, sans-serif; }
+  
+  .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
+  
+  .header { margin: 12px 0 18px; }
+  .header h1 { margin: 0 0 6px; font-size: 24px; }
+  .subtitle { color: var(--muted); font-size: 14px; }
+  
+  .card {
+    background: var(--card);
+    border: 1px solid #1f2a44;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 12px 0;
+  }
+  
+  .row { display: grid; grid-template-columns: 100px 1fr auto; gap: 8px; align-items: center; padding: 6px 0; }
+  .label { color: var(--muted); font-size: 14px; }
+  .value { font-weight: 600; overflow-wrap: anywhere; }
+  button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  button:hover { filter: brightness(1.05); }
+  
+  .hint { color: var(--muted); font-size: 13px; margin-top: 8px; }
+  .actions { margin-top: 12px; }
+  
+  .result h3, .logs h3 { margin: 12px 0; }
+  .waiting { color: var(--muted); padding: 10px; }
+  
+  .grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+  @media (min-width: 900px) {
+    .grid { grid-template-columns: 1fr 1fr; }
+  }
+  
+  .timeline { position: relative; padding-left: 12px; }
+  .timeline-item { display: grid; grid-template-columns: 16px 1fr; gap: 8px; margin-bottom: 12px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); margin-top: 8px; }
+  .content .line { margin: 2px 0; }
+  .content .raw { color: var(--muted); font-size: 12px; }
+  
+  .table { width: 100%; }
+  .thead, .tr { display: grid; grid-template-columns: 180px 1fr 1fr 160px; gap: 12px; }
+  .thead { font-weight: 700; padding: 8px 0; border-bottom: 1px solid #1f2a44; }
+  .tbody .tr { padding: 8px 0; border-bottom: 1px solid #14213d; }
+  .ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  
+  .footer { color: var(--muted); font-size: 12px; margin: 24px 0 10px; text-align: center; }
+  
