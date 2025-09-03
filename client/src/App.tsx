@@ -54,6 +54,28 @@ export default function App() {
     return () => window.clearInterval(t);
   }, []);
 
+  // Helper function to parse and format the 'From' field
+  const formatFrom = (from: string) => {
+    try {
+      // Handle format: "Name <email@example.com>"
+      const match = from.match(/^\s*"?([^"]*)"?\s*<([^>]+)>\s*$/) || from.match(/^\s*([^<]+?)\s*<([^>]+)>\s*$/) || [null, '', from];
+      const name = match[1]?.trim();
+      const email = match[2]?.trim() || from.trim();
+      
+      return (
+        <div className="from-container">
+          {name && <span className="from-name">{name}</span>}
+          <span className="from-email">
+            {name ? ` <${email}>` : email}
+          </span>
+        </div>
+      );
+    } catch (e) {
+      console.error('Error parsing from field:', e);
+      return from;
+    }
+  };
+
   return (
     <div className="container">
       <header className="header">
@@ -84,7 +106,7 @@ export default function App() {
               </div>
               <div className="row">
                 <div className="label">From</div>
-                <div className="value">{result.from || '-'}</div>
+                <div className="value">{formatFrom(result.from || '-')}</div>
               </div>
               <div className="row">
                 <div className="label">Subject</div>
@@ -100,13 +122,23 @@ export default function App() {
 
             <div className="card">
               <h3>Receiving Chain</h3>
-              <ChainTimeline hops={result.receivedChain || []} />
+              <ChainTimeline 
+                hops={result.receivedChain?.map(h => ({
+                  ...h,
+                  raw: h.raw || '',
+                  by: h.by || 'Unknown',
+                  from: h.from || 'Unknown',
+                  with: h.with || 'Unknown',
+                  id: h.id || 'N/A',
+                  date: h.date || 'Unknown'
+                })) || []} 
+              />
             </div>
           </div>
         )}
       </section>
 
-      <section className="logs">
+      <section className="card">
         <h3>Recent Logs</h3>
         <div className="table">
           <div className="thead">
@@ -118,14 +150,18 @@ export default function App() {
           <div className="tbody">
             {logs.map((x) => (
               <div className="tr" key={x._id}>
-                <div>{new Date(x.createdAt).toLocaleString()}</div>
+                <div className="ellipsis" title={new Date(x.createdAt).toLocaleString()}>
+                  {new Date(x.createdAt).toLocaleString()}
+                </div>
                 <div className="ellipsis" title={x.subject}>
                   {x.subject}
                 </div>
                 <div className="ellipsis" title={x.from}>
-                  {x.from}
+                  {formatFrom(x.from)}
                 </div>
-                <div>{x.esp}</div>
+                <div className="ellipsis" title={x.esp}>
+                  {x.esp}
+                </div>
               </div>
             ))}
           </div>
