@@ -143,7 +143,7 @@
 
   .thead {
     display: grid;
-    grid-template-columns: 160px 1fr 1.5fr 120px;
+    grid-template-columns: 200px 1fr 1.5fr 200px;
     gap: 12px;
     padding: 10px 12px;
     background: #0f172a;
@@ -164,7 +164,7 @@
 
   .tbody .tr {
     display: grid;
-    grid-template-columns: 160px 1fr 1.5fr 120px;
+    grid-template-columns: 200px 1fr 1.5fr 200px;
     gap: 12px;
     padding: 10px 12px;
     border-bottom: 1px solid #1f2a44;
